@@ -21,7 +21,7 @@ import pickle
 from tenpy_lattice_adapter import get_qubit_couplings
 from tenpy.models.lattice import Square
 import numpy as np
-from pytket.extensions.quantinuum import QuantinuumBackend
+from pytket.extensions.nexus import NexusBackend, Nexus, QuantinuumConfig
 
 def XY_step(dt, couplings, n_layers=1):
     # 2nd order Trotter step in XY model
@@ -52,10 +52,14 @@ couplings = get_qubit_couplings(lattice)
 dt = 0.2
 Tmax = 20
 
-machine = 'H1-1E'
-backend = QuantinuumBackend(device_name=machine)
-backend.login()
-print(machine, "status:", backend.device_state(device_name=machine))
+machine = 'H1-Emulator'
+emulator_config = QuantinuumConfig(device_name=machine)
+project_name="Microcanonical ExpVal Project"
+my_project = Nexus().new_project(name=project_name)
+backend = NexusBackend(
+    backend_config=emulator_config,
+    project=my_project,
+)
 n_shots = 100
 
 thetas = [0, 0.4, 0.6]

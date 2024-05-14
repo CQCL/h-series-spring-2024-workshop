@@ -11,7 +11,7 @@ We will not execute this script in real time.
 import os
 import pickle
 import numpy as np
-from pytket.extensions.quantinuum import QuantinuumBackend
+from pytket.extensions.nexus import NexusBackend, QuantinuumConfig
 
 def moments_from_counts(counts, moment=2):
     #1 is mean <X>
@@ -43,9 +43,12 @@ dt = 0.2
 Tmax = 20
 
 machine = 'H1-1E'
-backend = QuantinuumBackend(device_name=machine)
-backend.login()
-print(machine, "status:", backend.device_state(device_name=machine))
+emulator_config = QuantinuumConfig(device_name=machine)
+project_name="Microcanonical ExpVal Project"
+backend = NexusBackend(
+    backend_config=emulator_config,
+    project_name=project_name,
+)
 n_shots = 100
 
 thetas = [0, 0.4, 0.6]
