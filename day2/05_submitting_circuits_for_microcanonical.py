@@ -2,7 +2,7 @@
 In this script, we will submit the circuits to
 compute the order parameter in the XY model
 diagonal ensemble at different energies
-to the H1-1E emulator.
+to the H1-Emulator hosted in Nexus.
 
 In particular, we will note
 1) how to make sure 2nd order Trotterisation

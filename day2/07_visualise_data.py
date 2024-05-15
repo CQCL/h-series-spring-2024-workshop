@@ -1,5 +1,5 @@
 """
-In this script, we load the data from the H1-1E emulator
+In this script, we load the data from the H1-Emulator
 and visualise the results of the noisy circuits for the
 diagonal ensemble values in the XY model.
 

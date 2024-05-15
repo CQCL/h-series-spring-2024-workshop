@@ -42,7 +42,7 @@ N=Lx*Ly
 dt = 0.2
 Tmax = 20
 
-machine = 'H1-1E'
+machine = 'H1-Emulator'
 emulator_config = QuantinuumConfig(device_name=machine)
 project_name="Microcanonical ExpVal Project"
 backend = NexusBackend(
