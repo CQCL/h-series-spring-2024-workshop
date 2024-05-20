@@ -21,7 +21,8 @@ import pickle
 from tenpy_lattice_adapter import get_qubit_couplings
 from tenpy.models.lattice import Square
 import numpy as np
-from pytket.extensions.nexus import NexusBackend, Nexus, QuantinuumConfig
+from pytket.extensions.nexus import NexusBackend, QuantinuumConfig, Nexus
+from pytket.extensions.nexus.exceptions import ResourceFetchFailed
 
 def XY_step(dt, couplings, n_layers=1):
     # 2nd order Trotter step in XY model
@@ -55,10 +56,13 @@ Tmax = 20
 machine = 'H1-Emulator'
 emulator_config = QuantinuumConfig(device_name=machine)
 project_name="Microcanonical ExpVal Project"
-my_project = Nexus().new_project(name=project_name)
+try:
+    project = Nexus().get_project_by_name(project_name=project_name)
+except ResourceFetchFailed:
+    project = Nexus().new_project(name=project_name)
 backend = NexusBackend(
     backend_config=emulator_config,
-    project=my_project,
+    project=project,
 )
 n_shots = 100
 
