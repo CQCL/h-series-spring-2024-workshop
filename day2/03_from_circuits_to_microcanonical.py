@@ -17,7 +17,7 @@ from tenpy.models.lattice import Square
 import numpy as np
 from matplotlib import pyplot as plt
 from pytket.extensions.qiskit import tk_to_qiskit
-from qiskit import Aer
+from qiskit_aer import Aer
 from qiskit.quantum_info import SparsePauliOp, Statevector
 
 def get_pauli_string(N, lst):

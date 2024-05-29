@@ -11,7 +11,8 @@ We will not execute this script in real time.
 import os
 import pickle
 import numpy as np
-from pytket.extensions.nexus import NexusBackend, QuantinuumConfig
+from pytket.extensions.nexus import NexusBackend, QuantinuumConfig, Nexus
+from pytket.extensions.nexus.exceptions import ResourceFetchFailed
 
 def moments_from_counts(counts, moment=2):
     #1 is mean <X>
@@ -45,9 +46,13 @@ Tmax = 20
 machine = 'H1-Emulator'
 emulator_config = QuantinuumConfig(device_name=machine)
 project_name="Microcanonical ExpVal Project"
+try:
+    project = Nexus().get_project_by_name(project_name=project_name)
+except ResourceFetchFailed:
+    project = Nexus().new_project(name=project_name)
 backend = NexusBackend(
     backend_config=emulator_config,
-    project_name=project_name,
+    project=project,
 )
 n_shots = 100
 
